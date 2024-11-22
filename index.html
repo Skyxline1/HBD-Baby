@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สุขสันต์วันเกิด</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #fff4e6; /* สีพื้นหลังโทนอุ่น */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #ff7eb3; /* สีชมพูสดใส */
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #ff9999;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #ffcc99; /* สีส้มอ่อน */
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #ffb366; /* สีส้มเข้มขึ้นเมื่อ hover */
+        }
+        .image-container {
+            display: none; /* ซ่อนภาพไว้จนกว่าจะกดปุ่ม */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%; /* ปรับให้เต็มหน้าจอ */
+            max-width: 400px; /* กำหนดขนาดสูงสุด */
+            margin: 0 auto; /* จัดให้อยู่ตรงกลาง */
+        }
+        .image-container img {
+            width: 100%; /* ทำให้ภาพขยายเต็มกรอบ */
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            display: none; /* ซ่อนรูปภาพทั้งหมด */
+        }
+        .image-container img.active {
+            display: block; /* แสดงเฉพาะภาพที่ active */
+        }
+        .message-box {
+            display: none; /* ซ่อนข้อความไว้จนกว่าจะถึงภาพที่ 5 */
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff8e6; /* สีพื้นหลังกรอบ */
+            border: 2px solid #ffcc99;
+            border-radius: 15px;
+            width: 80%; /* ให้มีขนาดเท่ากับกรอบด้านบน */
+            max-width: 400px; /* กำหนดขนาดสูงสุด */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1.2rem;
+            color: #ffffff; /* สีข้อความ */
+            text-align: center;
+            word-wrap: break-word;
+        }
+        .music-ui {
+            display: none; /* ซ่อน UI เพลงจนกว่าจะถึงคำอวยพร */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: hsl(327, 100%, 85%); /* สีพื้นหลัง */
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(255, 169, 202, 0.1);
+            width: 80%;
+            max-width: 400px;
+        }
+        .music-ui h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .music-ui audio {
+            width: 100%;
+        }
+        .gift-box-container {
+    display: none; /* ซ่อนกล่องของขวัญจนกว่าจะถึงหน้าสุดท้าย */
+    margin-top: 20px;
+    text-align: center;
+}
+.gift-box {
+    width: 100px;
+    height: 100px;
+    background-color: #ff99cc; /* สีชมพูของกล่อง */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    cursor: pointer;
+    margin: 0 auto;
+    animation: bounce 2s infinite; /* เอฟเฟกต์เด้ง */
+}
+.gift-box::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 20px;
+    background-color: #ffcccc; /* สีฝาปิด */
+    border-radius: 5px;
+}
+.gift-reveal {
+    display: none; /* ซ่อนรูปของขวัญจนกว่าจะเปิด */
+    margin-top: 20px;
+}
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <h1>𝐡𝐚𝐩𝐩𝐲 𝐛𝐢𝐫𝐭𝐡𝐝𝐚𝐲 𝐭𝐨 𝐲𝐨𝐮 🎉</h1>
+    <p>กดถัดไปเพื่อดู ความน่ารักของคุณ!</p>
+    <button id="start-button" onclick="startSlideshow()">กดเพื่อเริ่ม</button>
+    <div class="image-container" id="image-container">
+        <img src="https://imagelink.dccr.xyz/uploads/674053c23685f.png" alt="ภาพที่ 1">
+        <img src="https://imagelink.dccr.xyz/uploads/6740548add7cb.png" alt="ภาพที่ 2">
+        <img src="https://imagelink.dccr.xyz/uploads/674055ec0389c.png" alt="ภาพที่ 3">
+        <img src="https://imagelink.dccr.xyz/uploads/6740566201fd6.png" alt="ภาพที่ 4">
+        <img src="https://imagelink.dccr.xyz/uploads/6740592bad23c.png" alt="ภาพที่ 5">
+        <img src="https://imagelink.dccr.xyz/uploads/67405949daed2.png" alt="ภาพที่ 6">
+        <img src="https://imagelink.dccr.xyz/uploads/6740595d1c298.png" alt="ภาพที่ 7">
+        <img src="https://imagelink.dccr.xyz/uploads/67405969274b9.png" alt="ภาพที่ 8">
+    </div>
+    <button id="start-music-button" style="display: none;" onclick="showMusicUI()">เริ่มเพลง</button>
+    <div id="music-ui" class="music-ui">
+        <h4>เพลง: แค่เธอ Why Don't You Stay</h4>
+        <audio controls>
+            <source src="https://imagelink.dccr.xyz/uploads/67404a317b68c.mp3" type="audio/mpeg">
+            เบราว์เซอร์ของคุณไม่รองรับการเล่นเพลง
+        </audio>
+    </div>    
+    <div id="controls" style="display: none;">
+        <button onclick="nextImage()">ถัดไป</button>
+    </div>
+    <div id="message-box" class="message-box">
+        <p>
+            💕 เปิดเพลงก่อนอ่านด้วยนะคะ เบบี๋ 💕<br><br>
+        
+            สุขสันต์วันเกิดนะครับที่รัก วันนี้ก็วันเกิดบี๋แล้ว<br>
+            ขอให้มีความสุขในทุกๆวัน ขอให้บี๋ได้ทุกอย่างตามที่หวัง<br>
+            ไว้เค้าพาไปกินส้มตำด้วยกันนะครับ 😙<br><br>
+        
+            เค้าจะค่อยอยู่เคียงข้างบี๋ตลอดไปเลย<br>
+            อันนี้สำคัญสุดดด เค้าขอโทษสำหรับบางครั้งที่อาจทำให้บี๋น้อยใจ<br>
+            หรือบางครั้งที่ทำให้บี๋ไม่พอใจตรงไหน เค้าจะไม่ทำอีกแล้วครับ<br>
+            เค้าจะปรับตัวเอง และจะตั้งใจรักบี๋มากขึ้นกว่าเดิมครับ
+            แต่ทุกการทะเลาะเค้ารู้สึกว่าเค้าได้เข้าใจบี๋มากขึ้นเรื่อยๆเลยนะครับ
+            เค้าโคตรดีใจเลยที่ได้คบกับบี๋ ได้อยู่กับคนที่อยากอยู่ด้วยที่สุดตั้งแต่ช.1
+            แล้วรู้สึกโชคดีมากเลยที่ได้เป็นแฟนที่รัก
+            <br><br>
+        
+            อยู่มีรอยยิ้มน่ารักแบบนี้ตลอดไปเลยนะครับ<br>
+            เค้ารักบี๋มากๆเลยนะครับ รักที่สุดเลย มุมุๆๆ 💕🎂<br><br>
+        
+                สุขสันต์วันเกิดนะ 🎂💕
+        </p>
+    </div>
+    <div id="gift-box-container" class="gift-box-container">
+        <p>🎁 ดูของขวัญของคุณ 🎁</p>
+        <div class="gift-box" onclick="revealGift()"></div>
+        <div class="gift-reveal" id="gift-reveal">
+            <img src="https://imagelink.dccr.xyz/uploads/67408024aaeab.jpg" alt="ของขวัญ" style="width: 200px; border-radius: 10px; box-shadow: 0 6px 10px rgba(0,0,0,0.2);">
+        </div>
+    </div>
+    
+    <script>
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.image-container img');
+        const imageContainer = document.getElementById('image-container');
+        const controls = document.getElementById('controls');
+        const startButton = document.getElementById('start-button');
+        const messageBox = document.getElementById('message-box');
+        const startMusicButton = document.getElementById('start-music-button');
+        const musicUI = document.getElementById('music-ui');
+        const giftBoxContainer = document.getElementById('gift-box-container');
+        const giftReveal = document.getElementById('gift-reveal');
+    
+        function startSlideshow() {
+            startButton.style.display = 'none'; // ซ่อนปุ่มเริ่มต้น
+            imageContainer.style.display = 'flex'; // แสดงภาพ
+            controls.style.display = 'flex'; // แสดงปุ่มควบคุม
+            images[currentImageIndex].classList.add('active'); // แสดงภาพแรก
+        }
+    
+        function nextImage() {
+            images[currentImageIndex].classList.remove('active'); // ซ่อนภาพปัจจุบัน
+            currentImageIndex = (currentImageIndex + 1) % images.length; // ไปยังภาพถัดไป
+            images[currentImageIndex].classList.add('active'); // แสดงภาพใหม่
+    
+            // แสดงข้อความ, ปุ่มเพลง, และกล่องของขวัญเมื่อถึงภาพสุดท้าย
+            if (currentImageIndex === images.length - 1) {
+                messageBox.style.display = 'block';
+                startMusicButton.style.display = 'block';
+                giftBoxContainer.style.display = 'block'; // แสดงกล่องของขวัญ
+            }
+        }
+    
+        function revealGift() {
+            giftReveal.style.display = 'block'; // แสดงรูปของขวัญ
+        }
+        function nextImage() {
+    images[currentImageIndex].classList.remove('active'); // ซ่อนภาพปัจจุบัน
+    currentImageIndex = (currentImageIndex + 1) % images.length; // ไปยังภาพถัดไป
+    images[currentImageIndex].classList.add('active'); // แสดงภาพใหม่
+
+    // แสดงข้อความ, ปุ่มเพลง, และกล่องของขวัญเมื่อถึงภาพสุดท้าย
+    if (currentImageIndex === images.length - 1) {
+        messageBox.style.display = 'block';
+        startMusicButton.style.display = 'block'; // แสดงปุ่มเริ่มเพลง
+        giftBoxContainer.style.display = 'block'; // แสดงกล่องของขวัญ
+    }
+}
+
+function showMusicUI() {
+    startMusicButton.style.display = 'none'; // ซ่อนปุ่มเริ่มเพลง
+    musicUI.style.display = 'block'; // แสดง UI เพลง
+}
+
+    </script>    
+</body>
+</html>
